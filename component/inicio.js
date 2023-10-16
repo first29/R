@@ -2,12 +2,12 @@ import { StatusBar } from 'expo-status-bar';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import * as Location from 'expo-location';
 import { useState, useEffect } from 'react';
+import tasksData from './taskdata';
 
 export default function Inicio({ navigation }) {
     const [userLocation, setUserLocation] = useState(null);
     useEffect(() => {
         (async () => {
-
             let { status } = await Location.requestBackgroundPermissionsAsync();
             if (status !== 'granted') {
                 setErrorMsg('Permission to access location was denied');
@@ -15,12 +15,13 @@ export default function Inicio({ navigation }) {
             }
             let location = await Location.getCurrentPositionAsync({});
             setUserLocation({ latitude: location.coords.latitude, longitude: location.coords.longitude });
-            console.log()
+            
         })();
-    }, []);
+    },[]);
+    console.log(userLocation);
     const handleViewOnMap = (userLocation) => {
-        console.log(userLocation);
-        navigation.navigate('Map', { userLocation });
+        const  task=tasksData[0]
+        navigation.navigate('Map', { userLocation,task });
     };
     return (
         <View style={styles.container}>
