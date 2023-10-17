@@ -69,9 +69,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
+       
     },
     taskContainer: {
         marginBottom: 20,
+        marginTop: 30
     },
     phaseContainer: {
         marginLeft: 20,
