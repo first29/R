@@ -2,9 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { ScrollView, TouchableOpacity, StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import * as Location from 'expo-location';
 import { useState, useEffect } from 'react';
-
+import task from './taskdata';
 const Inicio = ({ navigation }) => {
-    const [tasksData, setDatos] = useState(null);  // Estado para almacenar los datos
+    const [datos, setDatos] = useState(null);  // Estado para almacenar los datos
+
     const fetchData = async () => {
         const url = 'http://192.168.1.3:3000/tasks';
         try {
@@ -19,11 +20,9 @@ const Inicio = ({ navigation }) => {
             console.error('Error en la solicitud:', error);
         }
     };
-
     useEffect(() => {
         fetchData();  // Llamamos a la función para obtener datos cuando el componente se monta
-    }, []);
-    
+      }, []);
     const [userLocation, setUserLocation] = useState(null);
     useEffect(() => {
         (async () => {
@@ -46,7 +45,7 @@ const Inicio = ({ navigation }) => {
         <SafeAreaView style={{ flex: 1 }}>
             <ScrollView >
                 <View style={styles.container}>
-                    {tasksData.map(task => {
+                    {datos && datos.map(task => {
                         let faseAnteriorTerminada = true;  // Variable para verificar si la fase anterior está "terminado"
                         return (
                             <View key={task.IdTarea} style={styles.taskContainer}>

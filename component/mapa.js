@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import MapView, { Marker, Circle } from 'react-native-maps';
 import * as Location from 'expo-location';
-import task from './taskdata';
 import { useState, useEffect } from 'react';
 import { useRoute } from '@react-navigation/native';
 
