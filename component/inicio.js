@@ -2,9 +2,28 @@ import { StatusBar } from 'expo-status-bar';
 import { ScrollView, TouchableOpacity, StyleSheet, Text, View, SafeAreaView } from 'react-native';
 import * as Location from 'expo-location';
 import { useState, useEffect } from 'react';
-import tasksData from './taskdata';
 
-export default function Inicio({ navigation }) {
+const Inicio = ({ navigation }) => {
+    const [tasksData, setDatos] = useState(null);  // Estado para almacenar los datos
+    const fetchData = async () => {
+        const url = 'http://192.168.1.3:3000/tasks';
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Error al obtener los datos');
+            }
+            const data = await response.json();
+            console.log(data);
+            setDatos(data);  // Actualizamos el estado con los datos obtenidos
+        } catch (error) {
+            console.error('Error en la solicitud:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();  // Llamamos a la función para obtener datos cuando el componente se monta
+    }, []);
+    
     const [userLocation, setUserLocation] = useState(null);
     useEffect(() => {
         (async () => {
@@ -19,8 +38,8 @@ export default function Inicio({ navigation }) {
         })();
     }, []);
     console.log(userLocation);
-    const handleViewOnMap = (userLocation, mapa,radio) => {
-        navigation.navigate('Map', { userLocation, mapa,radio });
+    const handleViewOnMap = (userLocation, mapa, radio) => {
+        navigation.navigate('Map', { userLocation, mapa, radio });
     };
 
     return (
@@ -69,7 +88,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-       
+
     },
     taskContainer: {
         marginBottom: 20,
@@ -79,3 +98,5 @@ const styles = StyleSheet.create({
         marginLeft: 20,
     },
 });
+
+export default Inicio;

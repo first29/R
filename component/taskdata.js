@@ -1,4 +1,6 @@
-const tasksData = [
+import { useState } from "react";
+
+/*const tasksData = [
     {
         'IdTarea': 0,
         'Nombre_Tarea': "Tarea 1",
@@ -75,4 +77,7 @@ const tasksData = [
         ],
     }
 ];
-export default tasksData;
+
+
+
+export default fetchData;*/
